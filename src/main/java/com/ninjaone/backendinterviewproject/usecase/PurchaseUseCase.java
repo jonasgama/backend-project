@@ -1,6 +1,8 @@
 package com.ninjaone.backendinterviewproject.usecase;
 
 import com.ninjaone.backendinterviewproject.dto.PurchaseDTO;
+import com.ninjaone.backendinterviewproject.dto.PurchaseItemsDTO;
+import com.ninjaone.backendinterviewproject.entity.CustomerDeviceServicesEntity;
 import com.ninjaone.backendinterviewproject.entity.CustomerDevicesEntity;
 import com.ninjaone.backendinterviewproject.service.TransactionService;
 import org.springframework.stereotype.Service;
@@ -23,14 +25,15 @@ public class PurchaseUseCase {
     }
 
     @Transactional
-    public void confirmPurchase(PurchaseDTO purchase) throws Exception {
+    public void includeDevicesAndServices(PurchaseDTO purchase) throws Exception {
 
-        CustomerDevicesEntity customerDevice = devicePurchase.purchaseDeviceForCustomer(purchase.getCustomerId(), purchase.getDeviceId());
-        servicePurchase.purchaseServiceForDevice(customerDevice, purchase.getServiceForDevice());
-
-        transactionService.insert(purchase.getCustomerId(), purchase.getDeviceId(), 0d);
+        for (PurchaseItemsDTO item : purchase.getItems()) {
+            CustomerDevicesEntity customerDevicesEntity = devicePurchase.purchaseDeviceForCustomer(purchase.getCustomerId(), item.getDeviceId());
+            transactionService.insert(purchase.getCustomerId(), item.getDeviceId(), customerDevicesEntity.getDevice().getPrice());
+            for (String service : item.getServices()) {
+                CustomerDeviceServicesEntity customerDeviceServicesEntity = servicePurchase.purchaseServiceForDevice(customerDevicesEntity, service);
+                transactionService.insert(purchase.getCustomerId(), service, customerDeviceServicesEntity.getHiredService().getPrice());
+            }
+        }
     }
-
-
-
 }

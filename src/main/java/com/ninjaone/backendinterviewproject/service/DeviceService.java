@@ -5,8 +5,12 @@ import com.ninjaone.backendinterviewproject.dto.DeviceDTO;
 import com.ninjaone.backendinterviewproject.entity.DeviceEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class DeviceService {
@@ -27,7 +31,7 @@ public class DeviceService {
                     device.setPrice(price);
                     repository.save(device);
                 },
-                ()->new Exception("not found!"));
+                ()->new Exception("device not found!"));
     }
 
     public Optional<DeviceEntity> get(String id){

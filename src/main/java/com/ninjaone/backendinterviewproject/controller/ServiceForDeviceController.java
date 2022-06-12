@@ -1,5 +1,6 @@
 package com.ninjaone.backendinterviewproject.controller;
 
+import com.ninjaone.backendinterviewproject.dto.ServiceDTO;
 import com.ninjaone.backendinterviewproject.entity.ServiceEntity;
 import com.ninjaone.backendinterviewproject.service.ServiceForDeviceService;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,9 @@ public class ServiceForDeviceController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ServiceEntity post(@RequestBody ServiceEntity serviceForDevice){
-        return service.insert(serviceForDevice);
+    private ServiceEntity post(@RequestBody ServiceDTO dto){
+        //return service.insert(dto.getItem());
+        return null;
     }
 
     @DeleteMapping("/{id}")

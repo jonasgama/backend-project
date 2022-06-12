@@ -5,6 +5,9 @@ import com.ninjaone.backendinterviewproject.usecase.PurchaseUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/purchase")
 public class PurchaseController {
@@ -15,9 +18,10 @@ public class PurchaseController {
         this.useCase = useCase;
     }
 
-    @PostMapping
+    @PostMapping("/devices")
     @ResponseStatus(HttpStatus.CREATED)
     private void post(@RequestBody PurchaseDTO purchase) throws Exception {
-          useCase.confirmPurchase(purchase);
+          useCase.includeDevicesAndServices(purchase);
     }
+
 }

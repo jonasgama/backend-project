@@ -1,10 +1,19 @@
 package com.ninjaone.backendinterviewproject.dto;
 
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class PurchaseDTO {
 
     private String customerId;
-    private String deviceId;
-    private String serviceForDevice;
+
+    private Set<PurchaseItemsDTO> items;
+
+
+    public PurchaseDTO(){
+        this.items = new HashSet<>();
+    }
 
     public String getCustomerId() {
         return customerId;
@@ -14,19 +23,15 @@ public class PurchaseDTO {
         this.customerId = customerId;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public Set<PurchaseItemsDTO> getItems() {
+        return items;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public void setItems(Set<PurchaseItemsDTO> items) {
+        this.items = items;
     }
 
-    public String getServiceForDevice() {
-        return serviceForDevice;
-    }
-
-    public void setServiceForDevice(String serviceForDevice) {
-        this.serviceForDevice = serviceForDevice;
+    public void addItems(PurchaseItemsDTO ... items) {
+        this.items.addAll(Set.of(items));
     }
 }

@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="TRANSACTIONS")
@@ -16,7 +17,7 @@ public class TransactionsEntity {
     private String device;
     private Double devicePrice;
     @CreationTimestamp
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
 
     public String getCustomerName() {
@@ -43,11 +44,11 @@ public class TransactionsEntity {
         this.devicePrice = devicePrice;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

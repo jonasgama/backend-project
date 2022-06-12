@@ -6,6 +6,7 @@ import com.ninjaone.backendinterviewproject.database.DeviceRepository;
 import com.ninjaone.backendinterviewproject.entity.CustomerEntity;
 import com.ninjaone.backendinterviewproject.entity.DeviceEntity;
 import com.ninjaone.backendinterviewproject.entity.CustomerDevicesEntity;
+import com.ninjaone.backendinterviewproject.enums.Compatibility;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -32,13 +33,16 @@ public class CustomerDevicesPurchaseUseCase {
         if(!customer.isPresent()){
             throw new Exception("customer not found");
         }
+
         Optional<DeviceEntity> device = deviceRepository.findById(deviceId);
-        if(!device.isPresent() && device.get().isAvailable()){
+        if(!device.isPresent()){
             throw new Exception("device not found");
         }
+
         CustomerDevicesEntity devicePurchase = new CustomerDevicesEntity();
         devicePurchase.setCustomer(customer.get());
         devicePurchase.setDevice(device.get());
+
 
         return devicePurchaseRepository.save(devicePurchase);
     }

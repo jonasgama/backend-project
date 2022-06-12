@@ -1,22 +1,25 @@
 package com.ninjaone.backendinterviewproject.service;
 
 import com.ninjaone.backendinterviewproject.database.ServiceForDeviceRepository;
+import com.ninjaone.backendinterviewproject.dto.DeviceDTO;
+import com.ninjaone.backendinterviewproject.dto.ServiceDTO;
 import com.ninjaone.backendinterviewproject.entity.ServiceEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 @Service
 public class ServiceForDeviceService {
-    private final ServiceForDeviceRepository deviceRepository;
+    private final ServiceForDeviceRepository repository;
 
     public ServiceForDeviceService(ServiceForDeviceRepository deviceRepository) {
-        this.deviceRepository = deviceRepository;
-    }
-
-    public ServiceEntity insert(ServiceEntity serviceForDevice){
-        return deviceRepository.save(serviceForDevice);
+        this.repository = deviceRepository;
     }
 
     public void delete(String id) {
-        deviceRepository.deleteById(id);
+        repository.deleteById(id);
     }
 }

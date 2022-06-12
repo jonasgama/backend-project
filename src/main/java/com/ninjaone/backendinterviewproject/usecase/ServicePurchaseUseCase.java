@@ -1,6 +1,5 @@
 package com.ninjaone.backendinterviewproject.usecase;
 
-import com.ninjaone.backendinterviewproject.database.DeviceRepository;
 import com.ninjaone.backendinterviewproject.database.ServiceForDeviceRepository;
 import com.ninjaone.backendinterviewproject.database.ServicePurchaseRepository;
 import com.ninjaone.backendinterviewproject.entity.CustomerDeviceServicesEntity;
@@ -25,23 +24,20 @@ public class ServicePurchaseUseCase {
         this.servicePurchaseRepository = servicePurchaseRepository;
     }
 
-    public void purchaseServiceForDevice(CustomerDevicesEntity customerDevice, String serviceForDeviceId) throws Exception {
+    public CustomerDeviceServicesEntity purchaseServiceForDevice(CustomerDevicesEntity customerDevice, String serviceForDeviceId) throws Exception {
 
-        Optional<ServiceEntity> serviceForDevice = serviceForDeviceRepository.findById(serviceForDeviceId);
-        if(!serviceForDevice.isPresent() && serviceForDevice.get().isAvailable()){
-            throw new Exception("service is not available for this device");
-        }
+        Optional<ServiceEntity> service = serviceForDeviceRepository.findById(serviceForDeviceId);
 
-        if(!customerDevice.getDevice().getCompatibility().equals(serviceForDevice.get().getCompatibility())
-        && !customerDevice.getDevice().getCompatibility().equals(Compatibility.GENERIC)){
+        if(!customerDevice.getDevice().getCompatibility().equals(service.get().getCompatibility())
+                && !customerDevice.getDevice().getCompatibility().equals(Compatibility.GENERIC)){
             throw new Exception("service is not compatible for this device");
         }
 
         CustomerDeviceServicesEntity servicePurchased = new CustomerDeviceServicesEntity();
         servicePurchased.setDevicePurchased(customerDevice);
-        servicePurchased.setHiredService(serviceForDevice.get());
+        servicePurchased.setHiredService(service.get());
 
-        servicePurchaseRepository.save(servicePurchased);
+        return servicePurchaseRepository.save(servicePurchased);
 
     }
 

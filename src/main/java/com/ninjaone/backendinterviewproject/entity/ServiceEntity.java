@@ -2,9 +2,7 @@ package com.ninjaone.backendinterviewproject.entity;
 
 import com.ninjaone.backendinterviewproject.enums.Compatibility;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="SERVICES")
@@ -15,6 +13,17 @@ public class ServiceEntity {
     private Double price;
     private boolean available;
     private Compatibility compatibility;
+
+    public ServiceEntity(){
+
+    }
+
+    public ServiceEntity(String item, Double price, Compatibility compatibility){
+        this.item = item;
+        this.price = price;
+        this.compatibility = compatibility;
+        this.available = true;
+    }
 
     public Compatibility getCompatibility() {
         return compatibility;
