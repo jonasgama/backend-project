@@ -1,41 +1,41 @@
 package com.ninjaone.backendinterviewproject.controller;
 
-import com.ninjaone.backendinterviewproject.dto.DeviceDTO;
-import com.ninjaone.backendinterviewproject.entity.DeviceEntity;
-import com.ninjaone.backendinterviewproject.service.DeviceService;
+import com.ninjaone.backendinterviewproject.core.dto.DeviceDTO;
+import com.ninjaone.backendinterviewproject.catalog.entity.DeviceEntity;
+import com.ninjaone.backendinterviewproject.catalog.usecase.DeviceUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/devices")
 public class DeviceController {
-    private final DeviceService service;
+    private final DeviceUseCase useCase;
 
-    public DeviceController(DeviceService useCase) {
-        this.service = useCase;
+    public DeviceController(DeviceUseCase useCase) {
+        this.useCase = useCase;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private void post(@RequestBody DeviceDTO device){
-        service.save(device);
+    private void post(@RequestBody DeviceDTO device) throws Exception {
+        useCase.insert(device);
     }
 
     @GetMapping("/{id}")
-    private DeviceEntity get(@PathVariable String id){
-        return service.get(id)
-                .orElseThrow();
+    @ResponseStatus(HttpStatus.OK)
+    private DeviceEntity get(@PathVariable String id) throws Exception {
+        return useCase.get(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     private void put(@PathVariable String id, @RequestBody Double price) throws Exception {
-        service.update(id, price);
+        useCase.update(id, price);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     private void delete(@PathVariable String id){
-        service.delete(id);
+        useCase.delete(id);
     }
 }
