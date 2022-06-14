@@ -1,8 +1,8 @@
 package com.ninjaone.backendinterviewproject.catalog.usecase;
 
-import com.ninjaone.backendinterviewproject.catalog.entity.ServiceEntity;
-import com.ninjaone.backendinterviewproject.catalog.repository.ServiceForDeviceRepository;
-import com.ninjaone.backendinterviewproject.core.dto.ServiceDTO;
+import com.ninjaone.backendinterviewproject.catalog.infra.entity.entity.ServiceEntity;
+import com.ninjaone.backendinterviewproject.catalog.infra.repository.ServiceForDeviceRepository;
+import com.ninjaone.backendinterviewproject.catalog.domain.dto.ServiceDTO;
 import org.springframework.stereotype.Service;
 
 @Service

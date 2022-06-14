@@ -1,11 +1,9 @@
 package com.ninjaone.backendinterviewproject.catalog.usecase;
 
-import com.ninjaone.backendinterviewproject.catalog.repository.DeviceRepository;
-import com.ninjaone.backendinterviewproject.core.dto.DeviceDTO;
-import com.ninjaone.backendinterviewproject.catalog.entity.DeviceEntity;
+import com.ninjaone.backendinterviewproject.catalog.infra.repository.DeviceRepository;
+import com.ninjaone.backendinterviewproject.catalog.domain.dto.DeviceDTO;
+import com.ninjaone.backendinterviewproject.catalog.infra.entity.entity.DeviceEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class DeviceUseCase {

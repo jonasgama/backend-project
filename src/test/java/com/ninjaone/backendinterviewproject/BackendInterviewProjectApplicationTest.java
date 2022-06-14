@@ -1,17 +1,17 @@
 package com.ninjaone.backendinterviewproject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ninjaone.backendinterviewproject.customer.repository.CustomerRepository;
-import com.ninjaone.backendinterviewproject.catalog.repository.ServiceForDeviceRepository;
-import com.ninjaone.backendinterviewproject.core.dto.DeviceDTO;
-import com.ninjaone.backendinterviewproject.core.dto.PurchaseDTO;
-import com.ninjaone.backendinterviewproject.core.dto.PurchaseItemsDTO;
-import com.ninjaone.backendinterviewproject.customer.entity.CustomerEntity;
-import com.ninjaone.backendinterviewproject.catalog.entity.ServiceEntity;
-import com.ninjaone.backendinterviewproject.shop.transaction.entity.TransactionEntity;
-import com.ninjaone.backendinterviewproject.core.enums.CompatibilityEnum;
+import com.ninjaone.backendinterviewproject.order.domain.dto.OrderTransactionDTO;
+import com.ninjaone.backendinterviewproject.customer.infra.repository.CustomerRepository;
+import com.ninjaone.backendinterviewproject.catalog.infra.repository.ServiceForDeviceRepository;
+import com.ninjaone.backendinterviewproject.catalog.domain.dto.DeviceDTO;
+import com.ninjaone.backendinterviewproject.order.domain.dto.OrderDTO;
+import com.ninjaone.backendinterviewproject.order.domain.dto.OrderItemsDTO;
+import com.ninjaone.backendinterviewproject.customer.infra.entity.entity.CustomerEntity;
+import com.ninjaone.backendinterviewproject.catalog.infra.entity.entity.ServiceEntity;
+import com.ninjaone.backendinterviewproject.catalog.domain.enums.CompatibilityEnum;
 import com.ninjaone.backendinterviewproject.catalog.usecase.DeviceUseCase;
-import com.ninjaone.backendinterviewproject.shop.transaction.usecase.TransactionUseCase;
+import com.ninjaone.backendinterviewproject.order.usecase.OrderTransactionUseCase;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,11 +21,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -47,7 +50,7 @@ public class BackendInterviewProjectApplicationTest {
     private ServiceForDeviceRepository serviceForDeviceRepository;
 
     @Autowired
-    private TransactionUseCase transactionUseCase;
+    private OrderTransactionUseCase transactionUseCase;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -57,12 +60,11 @@ public class BackendInterviewProjectApplicationTest {
     public void shouldCalculateMonthlyCost() throws Exception {
         this.createDependencies();
 
-        PurchaseDTO purchase = new PurchaseDTO();
+        OrderDTO purchase = new OrderDTO();
         purchase.setCustomerId("retailer-test");
 
         String windowsDevice = "windows";
         Set<String> windowsServices = Set.of("antivirus-for-windows", "backup", "screen-share");
-        purchase.addItems(createSetOfItems(windowsDevice, windowsServices));
         purchase.addItems(createSetOfItems(windowsDevice, windowsServices));
         purchase.addItems(createSetOfItems(windowsDevice, windowsServices));
 
@@ -73,17 +75,35 @@ public class BackendInterviewProjectApplicationTest {
         purchase.addItems(createSetOfItems(macDevice, macServices));
 
 
-        mockMvc.perform(post("/purchase/devices")
+        mockMvc.perform(post("/orders/devices")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(purchase)))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
-        Set<TransactionEntity> transactionsEntities = transactionUseCase.filterByMonth(2022, 06);
-        Assertions.assertThat(transactionsEntities.size()).isEqualTo(24);
+        ResultActions resultActions = mockMvc.perform(get("/orders/transactions/{customerId}", "retailer-test")
+                        .contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        String contentAsString = resultActions.andReturn().getResponse().getContentAsString();
+        OrderTransactionDTO response = objectMapper.readValue(contentAsString, OrderTransactionDTO.class);
+
+
+        Assertions.assertThat(response).isNotNull();
+        Assertions.assertThat(response.getYear()).isEqualTo(LocalDate.now().getYear());
+        Assertions.assertThat(response.getMonth()).isEqualTo(LocalDate.now().getMonthValue());
+        Assertions.assertThat(response.getTotalPaid()).isEqualTo(71);
+        Assertions.assertThat(response.getItems().size()).isEqualTo(20);
+        Assertions.assertThat(response.getSummary().get("backup")).isEqualTo(15);
+        Assertions.assertThat(response.getSummary().get("antivirus-for-mac")).isEqualTo(21);
+        Assertions.assertThat(response.getSummary().get("screen-share")).isEqualTo(5);
+        Assertions.assertThat(response.getSummary().get("antivirus-for-windows")).isEqualTo(10);
+        Assertions.assertThat(response.getSummary().get("windows")).isEqualTo(8);
+        Assertions.assertThat(response.getSummary().get("mac")).isEqualTo(12);
+
     }
 
-    private PurchaseItemsDTO createSetOfItems(String device, Set<String> services) {
-        PurchaseItemsDTO windowsSet = new PurchaseItemsDTO();
+    private OrderItemsDTO createSetOfItems(String device, Set<String> services) {
+        OrderItemsDTO windowsSet = new OrderItemsDTO();
         windowsSet.setDeviceId(device);
         windowsSet.addServices(services);
         return windowsSet;

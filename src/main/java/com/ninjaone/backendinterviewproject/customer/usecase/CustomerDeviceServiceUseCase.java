@@ -1,12 +1,11 @@
 package com.ninjaone.backendinterviewproject.customer.usecase;
 
-import com.ninjaone.backendinterviewproject.catalog.entity.DeviceEntity;
-import com.ninjaone.backendinterviewproject.catalog.repository.ServiceForDeviceRepository;
-import com.ninjaone.backendinterviewproject.customer.repository.CustomerDeviceServiceRepository;
-import com.ninjaone.backendinterviewproject.customer.entity.CustomerDeviceServicesEntity;
-import com.ninjaone.backendinterviewproject.customer.entity.CustomerDevicesEntity;
-import com.ninjaone.backendinterviewproject.catalog.entity.ServiceEntity;
-import com.ninjaone.backendinterviewproject.core.enums.CompatibilityEnum;
+import com.ninjaone.backendinterviewproject.catalog.infra.repository.ServiceForDeviceRepository;
+import com.ninjaone.backendinterviewproject.customer.infra.repository.CustomerDeviceServiceRepository;
+import com.ninjaone.backendinterviewproject.customer.infra.entity.entity.CustomerDeviceServicesEntity;
+import com.ninjaone.backendinterviewproject.customer.infra.entity.entity.CustomerDevicesEntity;
+import com.ninjaone.backendinterviewproject.catalog.infra.entity.entity.ServiceEntity;
+import com.ninjaone.backendinterviewproject.catalog.domain.enums.CompatibilityEnum;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
