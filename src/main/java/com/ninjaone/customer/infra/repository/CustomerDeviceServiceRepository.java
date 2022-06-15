@@ -1,0 +1,8 @@
+package com.ninjaone.customer.infra.repository;
+
+import com.ninjaone.customer.infra.entity.CustomerDeviceServicesEntity;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CustomerDeviceServiceRepository extends CrudRepository<CustomerDeviceServicesEntity, String> {}
