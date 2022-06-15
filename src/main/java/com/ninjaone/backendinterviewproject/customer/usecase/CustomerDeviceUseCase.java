@@ -3,9 +3,9 @@ package com.ninjaone.backendinterviewproject.customer.usecase;
 import com.ninjaone.backendinterviewproject.customer.infra.repository.CustomerRepository;
 import com.ninjaone.backendinterviewproject.customer.infra.repository.CustomerDeviceRepository;
 import com.ninjaone.backendinterviewproject.catalog.infra.repository.DeviceRepository;
-import com.ninjaone.backendinterviewproject.customer.infra.entity.entity.CustomerEntity;
+import com.ninjaone.backendinterviewproject.customer.infra.entity.CustomerEntity;
 import com.ninjaone.backendinterviewproject.catalog.infra.entity.entity.DeviceEntity;
-import com.ninjaone.backendinterviewproject.customer.infra.entity.entity.CustomerDevicesEntity;
+import com.ninjaone.backendinterviewproject.customer.infra.entity.CustomerDevicesEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -43,6 +43,7 @@ public class CustomerDeviceUseCase {
         devicePurchase.setCustomer(customer.get());
         devicePurchase.setDevice(device.get());
         devicePurchase.setTraceId(traceId);
+        devicePurchase.setPrice(device.get().getPrice());
 
         return devicePurchaseRepository.save(devicePurchase);
     }

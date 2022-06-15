@@ -6,6 +6,8 @@ import com.ninjaone.backendinterviewproject.catalog.usecase.DeviceUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/devices")
 public class DeviceController {
@@ -17,7 +19,7 @@ public class DeviceController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private void post(@RequestBody DeviceDTO device) throws Exception {
+    private void post(@Valid @RequestBody DeviceDTO device) throws Exception {
         useCase.insert(device);
     }
 

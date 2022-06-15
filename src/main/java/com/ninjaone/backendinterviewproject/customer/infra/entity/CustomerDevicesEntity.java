@@ -1,4 +1,4 @@
-package com.ninjaone.backendinterviewproject.customer.infra.entity.entity;
+package com.ninjaone.backendinterviewproject.customer.infra.entity;
 
 import com.ninjaone.backendinterviewproject.catalog.infra.entity.entity.DeviceEntity;
 
@@ -17,6 +17,7 @@ public class CustomerDevicesEntity {
     @ManyToOne
     private DeviceEntity device;
     private UUID traceId;
+    private Double price;
 
     public CustomerEntity getCustomer() {
         return customer;
@@ -40,5 +41,13 @@ public class CustomerDevicesEntity {
 
     public void setTraceId(UUID traceId) {
         this.traceId = traceId;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

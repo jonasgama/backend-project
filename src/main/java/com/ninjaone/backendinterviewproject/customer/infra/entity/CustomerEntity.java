@@ -1,4 +1,4 @@
-package com.ninjaone.backendinterviewproject.customer.infra.entity.entity;
+package com.ninjaone.backendinterviewproject.customer.infra.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

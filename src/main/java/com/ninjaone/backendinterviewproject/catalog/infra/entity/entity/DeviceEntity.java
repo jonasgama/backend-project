@@ -1,6 +1,6 @@
 package com.ninjaone.backendinterviewproject.catalog.infra.entity.entity;
 
-import com.ninjaone.backendinterviewproject.catalog.domain.enums.CompatibilityEnum;
+import com.ninjaone.backendinterviewproject.catalog.domain.enums.CatalogCompatibilityEnum;
 
 import javax.persistence.*;
 
@@ -9,28 +9,28 @@ import javax.persistence.*;
 public class DeviceEntity {
 
     @Id
-    private String item;
+    private java.lang.String item;
     private Double price;
     private boolean available;
-    private CompatibilityEnum compatibility;
+    private CatalogCompatibilityEnum compatibility;
 
     public DeviceEntity(){}
 
-    public DeviceEntity(String item,
+    public DeviceEntity(java.lang.String item,
                         Double price,
-                        CompatibilityEnum compatibility){
+                        String compatibility){
 
         this.item = item;
         this.price = price;
-        this.compatibility = compatibility;
+        this.compatibility = CatalogCompatibilityEnum.valueOf(compatibility);
         this.available = true;
     }
 
-    public String getItem() {
+    public java.lang.String getItem() {
         return item;
     }
 
-    public void setItem(String item) {
+    public void setItem(java.lang.String item) {
         this.item = item;
     }
 
@@ -50,11 +50,11 @@ public class DeviceEntity {
         this.available = available;
     }
 
-    public CompatibilityEnum getCompatibility() {
+    public CatalogCompatibilityEnum getCompatibility() {
         return compatibility;
     }
 
-    public void setCompatibility(CompatibilityEnum compatibility) {
+    public void setCompatibility(CatalogCompatibilityEnum compatibility) {
         this.compatibility = compatibility;
     }
 }

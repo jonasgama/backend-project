@@ -5,8 +5,8 @@ import com.ninjaone.backendinterviewproject.customer.usecase.CustomerDeviceUseCa
 import com.ninjaone.backendinterviewproject.customer.usecase.CustomerDeviceServiceUseCase;
 import com.ninjaone.backendinterviewproject.order.domain.dto.OrderDTO;
 import com.ninjaone.backendinterviewproject.order.domain.dto.OrderItemsDTO;
-import com.ninjaone.backendinterviewproject.customer.infra.entity.entity.CustomerDeviceServicesEntity;
-import com.ninjaone.backendinterviewproject.customer.infra.entity.entity.CustomerDevicesEntity;
+import com.ninjaone.backendinterviewproject.customer.infra.entity.CustomerDeviceServicesEntity;
+import com.ninjaone.backendinterviewproject.customer.infra.entity.CustomerDevicesEntity;
 import com.ninjaone.backendinterviewproject.catalog.domain.enums.CatalogEnum;
 import com.ninjaone.backendinterviewproject.order.infra.entity.OrderEntity;
 import org.springframework.stereotype.Service;

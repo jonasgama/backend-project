@@ -1,6 +1,6 @@
 package com.ninjaone.backendinterviewproject.customer.infra.repository;
 
-import com.ninjaone.backendinterviewproject.customer.infra.entity.entity.CustomerDeviceServicesEntity;
+import com.ninjaone.backendinterviewproject.customer.infra.entity.CustomerDeviceServicesEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

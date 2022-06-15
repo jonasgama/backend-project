@@ -1,15 +1,16 @@
 package com.ninjaone.backendinterviewproject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ninjaone.backendinterviewproject.catalog.domain.dto.CatalogDTO;
 import com.ninjaone.backendinterviewproject.order.domain.dto.OrderTransactionDTO;
 import com.ninjaone.backendinterviewproject.customer.infra.repository.CustomerRepository;
 import com.ninjaone.backendinterviewproject.catalog.infra.repository.ServiceForDeviceRepository;
 import com.ninjaone.backendinterviewproject.catalog.domain.dto.DeviceDTO;
 import com.ninjaone.backendinterviewproject.order.domain.dto.OrderDTO;
 import com.ninjaone.backendinterviewproject.order.domain.dto.OrderItemsDTO;
-import com.ninjaone.backendinterviewproject.customer.infra.entity.entity.CustomerEntity;
+import com.ninjaone.backendinterviewproject.customer.infra.entity.CustomerEntity;
 import com.ninjaone.backendinterviewproject.catalog.infra.entity.entity.ServiceEntity;
-import com.ninjaone.backendinterviewproject.catalog.domain.enums.CompatibilityEnum;
+import com.ninjaone.backendinterviewproject.catalog.domain.enums.CatalogCompatibilityEnum;
 import com.ninjaone.backendinterviewproject.catalog.usecase.DeviceUseCase;
 import com.ninjaone.backendinterviewproject.order.usecase.OrderTransactionUseCase;
 import org.assertj.core.api.Assertions;
@@ -63,13 +64,13 @@ public class BackendInterviewProjectApplicationTest {
         OrderDTO purchase = new OrderDTO();
         purchase.setCustomerId("retailer-test");
 
-        String windowsDevice = "windows";
-        Set<String> windowsServices = Set.of("antivirus-for-windows", "backup", "screen-share");
+        java.lang.String windowsDevice = "windows";
+        Set<java.lang.String> windowsServices = Set.of("antivirus-for-windows", "backup", "screen-share");
         purchase.addItems(createSetOfItems(windowsDevice, windowsServices));
         purchase.addItems(createSetOfItems(windowsDevice, windowsServices));
 
-        String macDevice = "mac";
-        Set<String> macServices = Set.of("antivirus-for-mac", "backup", "screen-share");
+        java.lang.String macDevice = "mac";
+        Set<java.lang.String> macServices = Set.of("antivirus-for-mac", "backup", "screen-share");
         purchase.addItems(createSetOfItems(macDevice, macServices));
         purchase.addItems(createSetOfItems(macDevice, macServices));
         purchase.addItems(createSetOfItems(macDevice, macServices));
@@ -84,7 +85,7 @@ public class BackendInterviewProjectApplicationTest {
                         .contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        String contentAsString = resultActions.andReturn().getResponse().getContentAsString();
+        java.lang.String contentAsString = resultActions.andReturn().getResponse().getContentAsString();
         OrderTransactionDTO response = objectMapper.readValue(contentAsString, OrderTransactionDTO.class);
 
 
@@ -102,7 +103,7 @@ public class BackendInterviewProjectApplicationTest {
 
     }
 
-    private OrderItemsDTO createSetOfItems(String device, Set<String> services) {
+    private OrderItemsDTO createSetOfItems(java.lang.String device, Set<java.lang.String> services) {
         OrderItemsDTO windowsSet = new OrderItemsDTO();
         windowsSet.setDeviceId(device);
         windowsSet.addServices(services);
@@ -118,13 +119,13 @@ public class BackendInterviewProjectApplicationTest {
         DeviceDTO windowsDevice = new DeviceDTO();
         windowsDevice.setItem("windows");
         windowsDevice.setPrice(4d);
-        windowsDevice.setCompatibility(CompatibilityEnum.WINDOWS_SYSTEM);
+        windowsDevice.setCompatibility(CatalogCompatibilityEnum.WINDOWS_SYSTEM.getValue());
         windowsDevice.setAvailable(true);
 
         DeviceDTO macDevice = new DeviceDTO();
         macDevice.setItem("mac");
         macDevice.setPrice(4d);
-        macDevice.setCompatibility(CompatibilityEnum.IOS_SYSTEM);
+        macDevice.setCompatibility(CatalogCompatibilityEnum.IOS_SYSTEM.getValue());
         macDevice.setAvailable(true);
 
         deviceRepository.insert(windowsDevice);
@@ -134,27 +135,27 @@ public class BackendInterviewProjectApplicationTest {
         ServiceEntity antivirusForWindows = new ServiceEntity();
         antivirusForWindows.setAvailable(true);
         antivirusForWindows.setPrice(5d);
-        antivirusForWindows.setCompatibility(CompatibilityEnum.WINDOWS_SYSTEM);
+        antivirusForWindows.setCompatibility(CatalogCompatibilityEnum.WINDOWS_SYSTEM);
         antivirusForWindows.setItem("antivirus-for-windows");
 
 
         ServiceEntity antivirusForMac = new ServiceEntity();
         antivirusForMac.setAvailable(true);
         antivirusForMac.setPrice(7d);
-        antivirusForMac.setCompatibility(CompatibilityEnum.IOS_SYSTEM);
+        antivirusForMac.setCompatibility(CatalogCompatibilityEnum.IOS_SYSTEM);
         antivirusForMac.setItem("antivirus-for-mac");
 
 
         ServiceEntity backup = new ServiceEntity();
         backup.setAvailable(true);
         backup.setPrice(3d);
-        backup.setCompatibility(CompatibilityEnum.GENERIC);
+        backup.setCompatibility(CatalogCompatibilityEnum.GENERIC);
         backup.setItem("backup");
 
         ServiceEntity screenShare = new ServiceEntity();
         screenShare.setAvailable(true);
         screenShare.setPrice(1d);
-        screenShare.setCompatibility(CompatibilityEnum.GENERIC);
+        screenShare.setCompatibility(CatalogCompatibilityEnum.GENERIC);
         screenShare.setItem("screen-share");
 
         serviceForDeviceRepository.save(antivirusForWindows);

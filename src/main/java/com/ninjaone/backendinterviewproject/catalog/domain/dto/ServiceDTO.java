@@ -1,15 +1,15 @@
 package com.ninjaone.backendinterviewproject.catalog.domain.dto;
 
-import com.ninjaone.backendinterviewproject.catalog.domain.enums.CompatibilityEnum;
+import com.ninjaone.backendinterviewproject.catalog.domain.enums.CatalogCompatibilityEnum;
 
 public class ServiceDTO {
 
-    private String item;
+    private java.lang.String item;
     private Double price;
     private boolean available;
-    private CompatibilityEnum compatibility;
+    private CatalogCompatibilityEnum compatibility;
 
-    public ServiceDTO(String item, Double price, boolean available, CompatibilityEnum compatibility) {
+    public ServiceDTO(java.lang.String item, Double price, boolean available, CatalogCompatibilityEnum compatibility) {
         this.item = item;
         this.price = price;
         this.available = available;
@@ -29,11 +29,11 @@ public class ServiceDTO {
         return available;
     }
 
-    public CompatibilityEnum getCompatibility() {
+    public CatalogCompatibilityEnum getCompatibility() {
         return compatibility;
     }
 
-    public void setItem(String item) {
+    public void setItem(java.lang.String item) {
         this.item = item;
     }
 
@@ -45,7 +45,7 @@ public class ServiceDTO {
         this.available = available;
     }
 
-    public void setCompatibility(CompatibilityEnum compatibility) {
+    public void setCompatibility(CatalogCompatibilityEnum compatibility) {
         this.compatibility = compatibility;
     }
 }
