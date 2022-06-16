@@ -21,6 +21,7 @@ public class OrderTransactionUseCase {
     }
 
     public void insert(
+     Integer customerCatalogId,
      UUID traceId,
      String customerName,
      String item,
@@ -34,6 +35,7 @@ public class OrderTransactionUseCase {
         order.setCatalogType(catalog);
         order.setOperation(OperationEnum.PURHCASE);
         order.setTraceId(traceId);
+        order.setCustomerCatalogId(customerCatalogId);
         repository.save(order);
     }
 

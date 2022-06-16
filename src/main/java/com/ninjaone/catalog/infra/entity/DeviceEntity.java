@@ -1,6 +1,5 @@
 package com.ninjaone.catalog.infra.entity;
 
-import com.ninjaone.catalog.domain.enums.CatalogCompatibilityEnum;
 
 import javax.persistence.*;
 

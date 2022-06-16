@@ -1,10 +1,13 @@
 package com.ninjaone.order.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class OrderItemsDTO {
 
+    @JsonProperty("device_id")
     private String deviceId;
     private Set<String> services;
 

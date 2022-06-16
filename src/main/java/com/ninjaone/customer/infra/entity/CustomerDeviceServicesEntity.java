@@ -16,7 +16,6 @@ public class CustomerDeviceServicesEntity {
     private CustomerDevicesEntity devicePurchased;
     @OneToOne
     private ServiceEntity hiredService;
-    private UUID traceId;
     private Double price;
 
     public Integer getId() {
@@ -41,14 +40,6 @@ public class CustomerDeviceServicesEntity {
 
     public void setHiredService(ServiceEntity hiredService) {
         this.hiredService = hiredService;
-    }
-
-    public UUID getTraceId() {
-        return traceId;
-    }
-
-    public void setTraceId(UUID traceId) {
-        this.traceId = traceId;
     }
 
     public Double getPrice() {

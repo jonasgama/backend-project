@@ -1,5 +1,6 @@
 package com.ninjaone.order.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ninjaone.order.infra.entity.OrderEntity;
 
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 public class OrderTransactionDTO {
 
+    @JsonProperty("total_paid")
     private double totalPaid;
     private Integer month;
     private Integer year;

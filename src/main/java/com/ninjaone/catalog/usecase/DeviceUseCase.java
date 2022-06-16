@@ -6,7 +6,8 @@ import com.ninjaone.catalog.infra.entity.DeviceEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DeviceUseCase {
+public class DeviceUseCase{
+
     private final DeviceRepository repository;
 
     public DeviceUseCase(DeviceRepository repository) {
@@ -15,10 +16,19 @@ public class DeviceUseCase {
 
     public void insert(CatalogDTO dto) throws Exception {
         repository.findById(dto.getItem())
-                .ifPresentOrElse(device -> {
-                            new Exception(String.format("device %s already saved", device.getItem()));
+                .ifPresentOrElse(item -> {
+                            new Exception(String.format("device %s already saved", item.getItem()));
                         },
                         ()->  repository.save(new DeviceEntity(dto.getItem(), dto.getPrice(), dto.getCompatibility())));
+    }
+
+    public void delete(String id) {
+        repository.findById(id)
+                .ifPresentOrElse(item -> {
+                            item.setAvailable(false);
+                            repository.save(item);
+                        },
+                        ()->new Exception("device not found!"));
     }
 
     public void update(String id, CatalogDTO dto) {
@@ -30,17 +40,9 @@ public class DeviceUseCase {
                 ()->new Exception("device not found!"));
     }
 
-    public DeviceEntity get(String id) throws Exception {
+    public CatalogDTO get(String id) throws Exception {
         return repository.findById(id)
+                .map(entity -> new CatalogDTO(entity.getItem(), entity.getPrice(), entity.isAvailable(), entity.getCompatibility().getValue()))
                 .orElseThrow(()->new Exception("device not found!"));
-    }
-
-    public void delete(String id) {
-        repository.findById(id)
-                .ifPresentOrElse(device -> {
-                            device.setAvailable(false);
-                            repository.save(device);
-                        },
-                        ()->new Exception("device not found!"));
     }
 }

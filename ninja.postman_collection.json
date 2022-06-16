@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "26122735-76f1-4410-a32f-8c1a7432417a",
+		"name": "ninja",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19282379"
+	},
+	"item": [
+		{
+			"name": "devices/windows",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/devices/WINDOWS",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"devices",
+						"WINDOWS"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calculation usecase",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customer_id\": \"A\",\n    \"items\": [\n        {\n            \"device_id\": \"WINDOWS\",\n            \"services\": [\n                \"ANTIVIRUS-FOR-WINDOWS\",\n                \"BACKUP\",\n                \"SCREEN-SHARE\"\n            ]\n        },\n        {\n            \"device_id\": \"WINDOWS\",\n            \"services\": [\n                \"ANTIVIRUS-FOR-WINDOWS\",\n                \"BACKUP\",\n                \"SCREEN-SHARE\"\n            ]\n        },\n        {\n            \"device_id\": \"MAC\",\n            \"services\": [\n                \"ANTIVIRUS-FOR-MAC\",\n                \"BACKUP\",\n                \"SCREEN-SHARE\"\n            ]\n        },\n         {\n            \"device_id\": \"MAC\",\n            \"services\": [\n                \"ANTIVIRUS-FOR-MAC\",\n                \"BACKUP\",\n                \"SCREEN-SHARE\"\n            ]\n        },\n         {\n            \"device_id\": \"MAC\",\n            \"services\": [\n                \"ANTIVIRUS-FOR-MAC\",\n                \"BACKUP\",\n                \"SCREEN-SHARE\"\n            ]\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/orders/devices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "summary transactions use case",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/orders/transactions/A?month=6&year=2022",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"transactions",
+						"A"
+					],
+					"query": [
+						{
+							"key": "month",
+							"value": "6"
+						},
+						{
+							"key": "year",
+							"value": "2022"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "devices/mac",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/devices/MAC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"devices",
+						"MAC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "services/random-service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"item\": \"random-service\",\n    \"price\": 10.0,\n    \"compatibility\": \"generic\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/services",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "services/random-service",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/services/random-service",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"services",
+						"random-service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "devices/random-error",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"item\": \"random-device\",\n    \"price\": 0.0,\n    \"compatibility\": \"generic2\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/devices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"devices"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

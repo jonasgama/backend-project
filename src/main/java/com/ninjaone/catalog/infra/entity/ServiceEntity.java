@@ -12,4 +12,5 @@ public class ServiceEntity extends CatalogEntity{
                         String compatibility){
         super(item, price, compatibility);
     }
+
 }

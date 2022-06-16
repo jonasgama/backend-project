@@ -35,11 +35,11 @@ public class OrderUseCase {
     public void includeDevicesAndServices(OrderDTO purchase) throws Exception {
         UUID traceId = UUID.randomUUID();
         for (OrderItemsDTO item : purchase.getItems()) {
-            CustomerDevicesEntity customerDevicesEntity = deviceUseCase.purchaseDeviceForCustomer(traceId, purchase.getCustomerId(), item.getDeviceId());
-            transactionUseCase.insert(traceId, purchase.getCustomerId(), item.getDeviceId(), customerDevicesEntity.getDevice().getPrice(), CatalogEnum.DEVICE);
+            CustomerDevicesEntity customerDevicesEntity = deviceUseCase.purchaseDeviceForCustomer(purchase.getCustomerId(), item.getDeviceId());
+            transactionUseCase.insert(customerDevicesEntity.getId(), traceId, purchase.getCustomerId(), item.getDeviceId(), customerDevicesEntity.getDevice().getPrice(), CatalogEnum.DEVICE);
             for (String service : item.getServices()) {
-                CustomerDeviceServicesEntity customerDeviceServicesEntity = serviceUseCase.purchaseServiceForDevice(traceId, customerDevicesEntity, service);
-                transactionUseCase.insert(traceId, purchase.getCustomerId(), service, customerDeviceServicesEntity.getHiredService().getPrice(), CatalogEnum.SERVICE);
+                CustomerDeviceServicesEntity customerDeviceServicesEntity = serviceUseCase.purchaseServiceForDevice(customerDevicesEntity, service);
+                transactionUseCase.insert(customerDeviceServicesEntity.getId(), traceId, purchase.getCustomerId(), service, customerDeviceServicesEntity.getHiredService().getPrice(), CatalogEnum.SERVICE);
             }
         }
     }

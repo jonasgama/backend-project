@@ -16,7 +16,6 @@ public class CustomerDevicesEntity {
     private CustomerEntity customer;
     @ManyToOne
     private DeviceEntity device;
-    private UUID traceId;
     private Double price;
 
     public CustomerEntity getCustomer() {
@@ -35,19 +34,19 @@ public class CustomerDevicesEntity {
         this.device = device;
     }
 
-    public UUID getTraceId() {
-        return traceId;
-    }
-
-    public void setTraceId(UUID traceId) {
-        this.traceId = traceId;
-    }
-
     public Double getPrice() {
         return price;
     }
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

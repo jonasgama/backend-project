@@ -1,5 +1,6 @@
 package com.ninjaone.catalog.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ninjaone.catalog.domain.dto.contraints.CreateCatalog;
 import com.ninjaone.catalog.domain.dto.contraints.UpdateCatalog;
 import com.ninjaone.catalog.domain.enums.CatalogCompatibilityEnum;

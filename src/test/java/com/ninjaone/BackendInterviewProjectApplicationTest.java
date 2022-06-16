@@ -2,6 +2,7 @@ package com.ninjaone;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ninjaone.catalog.domain.dto.CatalogDTO;
+import com.ninjaone.catalog.usecase.DeviceUseCase;
 import com.ninjaone.order.domain.dto.OrderTransactionDTO;
 import com.ninjaone.customer.infra.repository.CustomerRepository;
 import com.ninjaone.catalog.infra.repository.ServiceForDeviceRepository;
@@ -10,7 +11,6 @@ import com.ninjaone.order.domain.dto.OrderItemsDTO;
 import com.ninjaone.customer.infra.entity.CustomerEntity;
 import com.ninjaone.catalog.infra.entity.ServiceEntity;
 import com.ninjaone.catalog.domain.enums.CatalogCompatibilityEnum;
-import com.ninjaone.catalog.usecase.DeviceUseCase;
 import com.ninjaone.order.usecase.OrderTransactionUseCase;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

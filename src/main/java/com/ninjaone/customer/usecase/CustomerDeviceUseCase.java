@@ -28,7 +28,7 @@ public class CustomerDeviceUseCase {
         this.customerRepository = customerRepository;
     }
 
-    public CustomerDevicesEntity purchaseDeviceForCustomer(UUID traceId, String customerId, String deviceId) throws Exception {
+    public CustomerDevicesEntity purchaseDeviceForCustomer(String customerId, String deviceId) throws Exception {
         Optional<CustomerEntity> customer = customerRepository.findById(customerId);
         if(!customer.isPresent()){
             throw new Exception("customer not found");
@@ -42,7 +42,6 @@ public class CustomerDeviceUseCase {
         CustomerDevicesEntity devicePurchase = new CustomerDevicesEntity();
         devicePurchase.setCustomer(customer.get());
         devicePurchase.setDevice(device.get());
-        devicePurchase.setTraceId(traceId);
         devicePurchase.setPrice(device.get().getPrice());
 
         return devicePurchaseRepository.save(devicePurchase);

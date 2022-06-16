@@ -14,18 +14,18 @@ import java.util.UUID;
 @Service
 public class CustomerDeviceServiceUseCase {
     private final ServiceForDeviceRepository serviceForDeviceRepository;
-    private final CustomerDeviceServiceRepository servicePurchaseRepository;
+    private final CustomerDeviceServiceRepository customerDeviceServiceRepository;
 
 
     public CustomerDeviceServiceUseCase(
             ServiceForDeviceRepository serviceForDeviceRepository,
-            CustomerDeviceServiceRepository servicePurchaseRepository
+            CustomerDeviceServiceRepository customerDeviceServiceRepository
     ) {
         this.serviceForDeviceRepository = serviceForDeviceRepository;
-        this.servicePurchaseRepository = servicePurchaseRepository;
+        this.customerDeviceServiceRepository = customerDeviceServiceRepository;
     }
 
-    public CustomerDeviceServicesEntity purchaseServiceForDevice(UUID traceId, CustomerDevicesEntity customerDevice, String serviceForDeviceId) throws Exception {
+    public CustomerDeviceServicesEntity purchaseServiceForDevice(CustomerDevicesEntity customerDevice, String serviceForDeviceId) throws Exception {
 
         Optional<ServiceEntity> service = serviceForDeviceRepository.findById(serviceForDeviceId);
 
@@ -41,10 +41,9 @@ public class CustomerDeviceServiceUseCase {
         CustomerDeviceServicesEntity servicePurchased = new CustomerDeviceServicesEntity();
         servicePurchased.setDevicePurchased(customerDevice);
         servicePurchased.setHiredService(service.get());
-        servicePurchased.setTraceId(traceId);
         servicePurchased.setPrice(service.get().getPrice());
 
-        return servicePurchaseRepository.save(servicePurchased);
+        return customerDeviceServiceRepository.save(servicePurchased);
 
     }
 

@@ -3,6 +3,7 @@ package com.ninjaone.catalog.infra.controller;
 import com.ninjaone.catalog.domain.dto.CatalogDTO;
 import com.ninjaone.catalog.domain.dto.contraints.CreateCatalog;
 import com.ninjaone.catalog.domain.dto.contraints.UpdateCatalog;
+import com.ninjaone.catalog.infra.entity.CatalogEntity;
 import com.ninjaone.catalog.infra.entity.DeviceEntity;
 import com.ninjaone.catalog.usecase.DeviceUseCase;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class DeviceController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private DeviceEntity get(@PathVariable String id) throws Exception {
+    private CatalogDTO get(@PathVariable String id) throws Exception {
         return useCase.get(id);
     }
 

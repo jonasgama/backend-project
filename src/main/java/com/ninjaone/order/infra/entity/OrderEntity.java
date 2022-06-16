@@ -19,7 +19,7 @@ public class OrderEntity {
     private String catalogItem;
     private Double price;
     private UUID traceId;
-    private Integer catalogId;
+    private Integer customerCatalogId;
     private OperationEnum operation;
     private CatalogEnum catalogType;
     @CreationTimestamp
@@ -90,12 +90,12 @@ public class OrderEntity {
         this.catalogType = catalogType;
     }
 
-    public Integer getCatalogId() {
-        return catalogId;
+    public Integer getCustomerCatalogId() {
+        return customerCatalogId;
     }
 
-    public void setCatalogId(Integer catalogId) {
-        this.catalogId = catalogId;
+    public void setCustomerCatalogId(Integer customerCatalogId) {
+        this.customerCatalogId = customerCatalogId;
     }
 
 }

@@ -6,22 +6,21 @@ import com.ninjaone.catalog.domain.enums.CatalogCompatibilityEnum;
 import com.ninjaone.catalog.usecase.DeviceUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
 public class DeviceControllerTest {
-
-
 
     @Mock
     private DeviceUseCase useCase;
@@ -100,7 +99,7 @@ public class DeviceControllerTest {
 
 
 
-        mockMvc.perform(delete("/devices/{id}", "antivirus")
+        mockMvc.perform(delete("/devices/{id}", "windows")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isNoContent());
@@ -113,9 +112,30 @@ public class DeviceControllerTest {
         dto.setPrice(10d);
         dto.setCompatibility("ios_system");
 
-        mockMvc.perform(put("/devices/{id}", "antivirus-for-ios")
+        mockMvc.perform(put("/devices/{id}", "mac")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldGetItem() throws Exception {
+
+        CatalogDTO dto = new CatalogDTO();
+        dto.setItem("phone");
+        dto.setPrice(10d);
+        dto.setCompatibility("ios_system");
+
+        when(useCase.get(eq(dto.getItem()))).thenReturn(dto);
+
+        ResultActions response = mockMvc.perform(get("/devices/{id}", "phone")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.item").value("phone"))
+                .andExpect(jsonPath("$.price").value(10d))
+                .andExpect(jsonPath("$.available").value(true))
+                .andExpect(jsonPath("$.compatibility").value("ios_system"));
+
     }
 }

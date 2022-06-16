@@ -1,11 +1,14 @@
 package com.ninjaone.order.domain.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class OrderDTO {
 
+    @JsonProperty("customer_id")
     private String customerId;
 
     private Set<OrderItemsDTO> items;
